@@ -156,6 +156,7 @@ ui <- dashboardPage(
     sidebarMenu(
       id = "tabs",
       menuItem("🏠 Dashboard Overview", tabName = "overview", icon = icon("home")),
+      menuItem("📖 Guide Penggunaan", tabName = "guide", icon = icon("question-circle")),
       menuItem("📊 Analisis Deskriptif", tabName = "descriptive", icon = icon("chart-bar")),
       menuItem("🔗 Analisis Inferensia", tabName = "inferential", icon = icon("project-diagram"),
                menuSubItem("Korelasi Spearman", tabName = "correlation"),
@@ -219,7 +220,186 @@ ui <- dashboardPage(
                 )
               )
       ),
-      
+      # Guide Tab
+      tabItem(tabName = "guide",
+              fluidRow(
+                box(
+                  title = "📖 Panduan Penggunaan Dashboard Climate Change", status = "primary", solidHeader = TRUE, width = 12,
+                  tabsetPanel(
+                    tabPanel("🚀 Memulai",
+                             br(),
+                             h4("Selamat Datang di Dashboard Climate Change Jawa Timur!"),
+                             p("Dashboard ini dirancang untuk membantu Anda menganalisis data iklim dan produktivitas pertanian di Jawa Timur. Berikut adalah langkah-langkah untuk memulai:"),
+                             
+                             h5("1. 📊 Dashboard Overview"),
+                             p("• Mulai dari tab 'Dashboard Overview' untuk melihat ringkasan data"),
+                             p("• Lihat informasi dasar seperti jumlah daerah, tahun observasi, dan variabel"),
+                             p("• Perhatikan grafik ringkasan untuk mendapat gambaran umum"),
+                             
+                             h5("2. ⬆️ Upload Data (Opsional)"),
+                             p("• Jika Anda memiliki variabel tambahan, gunakan tab 'Upload Data'"),
+                             p("• File harus berformat CSV/Excel dengan kolom: Nama_Daerah, Bulan, Tahun"),
+                             p("• Setelah upload, data akan otomatis tersedia di semua fitur analisis"),
+                             
+                             h5("3. 📈 Mulai Analisis"),
+                             p("• Pilih jenis analisis sesuai kebutuhan Anda"),
+                             p("• Setiap tab memiliki pengaturan filter dan parameter"),
+                             p("• Hasil akan ditampilkan dalam bentuk grafik, tabel, dan interpretasi"),
+                             
+                             div(class = "alert alert-info",
+                                 HTML("<strong>💡 Tips:</strong> Mulai dengan Analisis Deskriptif untuk memahami karakteristik data, kemudian lanjut ke analisis yang lebih kompleks."))
+                    ),
+                    
+                    tabPanel("📊 Fitur Analisis",
+                             br(),
+                             h4("Fitur-Fitur Analisis yang Tersedia:"),
+                             
+                             h5("1. 📊 Analisis Deskriptif"),
+                             tags$ul(
+                               tags$li("Statistik dasar (mean, median, std dev, dll.)"),
+                               tags$li("Uji normalitas (Shapiro-Wilk, Anderson-Darling, KS)"),
+                               tags$li("Visualisasi distribusi (histogram, boxplot)"),
+                               tags$li("Filter berdasarkan tahun dan daerah")
+                             ),
+                             
+                             h5("2. 🔗 Analisis Korelasi Spearman"),
+                             tags$ul(
+                               tags$li("Mengukur hubungan monoton antar variabel"),
+                               tags$li("Matriks korelasi visual dan numerik"),
+                               tags$li("Filter per tahun dan per daerah"),
+                               tags$li("Interpretasi kekuatan korelasi")
+                             ),
+                             
+                             h5("3. 🧪 Kruskal Wallis Test"),
+                             tags$ul(
+                               tags$li("Uji perbedaan median antar kelompok"),
+                               tags$li("Pengelompokan berdasarkan tahun atau daerah"),
+                               tags$li("Visualisasi boxplot dengan interpretasi"),
+                               tags$li("Cocok untuk data non-normal")
+                             ),
+                             
+                             h5("4. 📈 Regresi Robust"),
+                             tags$ul(
+                               tags$li("Model regresi tahan outlier"),
+                               tags$li("Pemilihan variabel dependen dan independen"),
+                               tags$li("Plot residual dan prediksi vs aktual"),
+                               tags$li("Interpretasi koefisien model")
+                             ),
+                             
+                             h5("5. 📈 Time Series Analysis"),
+                             tags$ul(
+                               tags$li("Analisis tren temporal data iklim"),
+                               tags$li("Uji stasioneritas (ADF, KPSS)"),
+                               tags$li("Model ARIMA otomatis"),
+                               tags$li("Interpretasi komponen trend dan seasonal")
+                             ),
+                             
+                             h5("6. 🔮 Prediksi & Simulasi"),
+                             tags$ul(
+                               tags$li("Prediksi berdasarkan input variabel iklim"),
+                               tags$li("Confidence interval untuk prediksi"),
+                               tags$li("Analisis sensitivitas"),
+                               tags$li("Perbandingan dengan data historis")
+                             )
+                    ),
+                    
+                    tabPanel("🗺️ Visualisasi",
+                             br(),
+                             h4("Fitur Visualisasi yang Tersedia:"),
+                             
+                             h5("1. 📊 Visualisasi Lanjutan"),
+                             tags$ul(
+                               tags$li("Heatmap korelasi interaktif"),
+                               tags$li("Scatter plot matrix"),
+                               tags$li("Plot distribusi per tahun"),
+                               tags$li("Radar chart profil iklim")
+                             ),
+                             
+                             h5("2. 🗺️ Visualisasi Spasial"),
+                             tags$ul(
+                               tags$li("Peta interaktif Jawa Timur"),
+                               tags$li("Visualisasi data per daerah"),
+                               tags$li("Filter berdasarkan tahun dan bulan"),
+                               tags$li("Informasi statistik regional")
+                             ),
+                             
+                             h5("Tips Visualisasi:"),
+                             div(class = "alert alert-success",
+                                 tags$ul(
+                                   tags$li("Gunakan filter untuk fokus pada periode atau wilayah tertentu"),
+                                   tags$li("Hover mouse pada grafik untuk informasi detail"),
+                                   tags$li("Peta interaktif dapat di-zoom dan di-pan"),
+                                   tags$li("Semua grafik dapat di-export sebagai gambar")
+                                 ))
+                    ),
+                    
+                    tabPanel("💾 Data & Download",
+                             br(),
+                             h4("Mengelola Data dan Download:"),
+                             
+                             h5("1. ⬆️ Upload Data Tambahan"),
+                             p("Format file yang didukung:"),
+                             tags$ul(
+                               tags$li("CSV (.csv)"),
+                               tags$li("Excel (.xlsx, .xls)")
+                             ),
+                             p("Struktur file yang diperlukan:"),
+                             tags$ul(
+                               tags$li("Kolom wajib: Nama_Daerah, Bulan, Tahun"),
+                               tags$li("Kolom tambahan: variabel baru yang ingin ditambahkan"),
+                               tags$li("Nama daerah harus sesuai dengan data utama"),
+                               tags$li("Periode (tahun-bulan) harus ada yang overlapping")
+                             ),
+                             
+                             h5("2. ⬇️ Download Hasil"),
+                             p("Anda dapat mendownload:"),
+                             tags$ul(
+                               tags$li("Data mentah (termasuk data yang sudah digabung)"),
+                               tags$li("Hasil analisis dalam format CSV")
+                             ),
+                             
+                             h5("3. 📝 Catatan Riset"),
+                             p("Gunakan tab 'Catatan Riset' untuk:"),
+                             tags$ul(
+                               tags$li("Memahami metodologi yang digunakan"),
+                               tags$li("Interpretasi hasil statistik"),
+                               tags$li("Rujukan untuk penulisan laporan"),
+                               tags$li("Implikasi kebijakan dari hasil analisis")
+                             )
+                    ),
+                    
+                    tabPanel("❓ FAQ & Tips",
+                             br(),
+                             h4("Frequently Asked Questions:"),
+                             
+                             h5("Q: Data saya tidak muncul setelah di-upload?"),
+                             p("A: Pastikan file memiliki kolom Nama_Daerah, Bulan, Tahun yang sesuai format. Periksa juga apakah nama daerah cocok dengan data utama."),
+                             
+                             h5("Q: Uji normalitas menunjukkan data tidak normal, apa yang harus dilakukan?"),
+                             p("A: Ini normal untuk data iklim. Gunakan metode non-parametrik seperti Korelasi Spearman dan Kruskal-Wallis Test yang sudah tersedia."),
+                             
+                             h5("Q: Model regresi memberikan hasil yang aneh?"),
+                             p("A: Periksa outlier dalam data. Regresi robust sudah menangani outlier, tapi data yang ekstrem tetap bisa mempengaruhi hasil."),
+                             
+                             h5("Q: Time series menunjukkan data non-stasioner?"),
+                             p("A: Ini wajar untuk data iklim. Model ARIMA otomatis akan melakukan differencing yang diperlukan."),
+                             
+                             br(),
+                             h4("Tips Penggunaan Optimal:"),
+                             div(class = "alert alert-info",
+                                 tags$ul(
+                                   tags$li("Mulai dengan analisis deskriptif untuk memahami data"),
+                                   tags$li("Gunakan filter tahun/daerah untuk analisis spesifik"),
+                                   tags$li("Kombinasikan beberapa jenis analisis untuk insight yang lebih dalam"),
+                                   tags$li("Perhatikan interpretasi statistik di setiap hasil"),
+                                   tags$li("Simpan hasil penting dengan fitur download"),
+                                   tags$li("Gunakan visualisasi spasial untuk memahami pola geografis")
+                                 ))
+                    )
+                  )
+                )
+              )
+      ),
       # Descriptive Analysis Tab
       tabItem(tabName = "descriptive",
               fluidRow(
@@ -688,7 +868,7 @@ server <- function(input, output, session) {
       ),
       footer = tagList(
         modalButton("Tutup"),
-        actionButton("open_youtube", "Buka di YouTube",  # ✅ ID berbeda
+        actionButton("open_youtube", "Buka di YouTube",  # ✅ IDa berbed
                      onclick = "window.open('https://www.youtube.com/watch?v=kPfD-I4R9QM', '_blank')",
                      class = "btn-primary")
       )
